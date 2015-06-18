@@ -1,0 +1,42 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/rack/style.css">
+</head>
+<body>
+<div id="container" class="container">
+<canvas id="canvas" class="canvas"></canvas>
+<div id="objects" class="objects">
+<img src="/rack/curve.png" onClick="init('boundary');"/>
+<img src="/rack/line.png" onClick="init('connector');"/>
+<img src="/rack/rectangle.png" onClick="init('filestore');"/>
+<img src="/rack/circle.png" onClick="init('process');"/>
+<img src="/rack/break.png" onClick="init('breakleft');"/>
+<img src="/rack/break.png" onClick="init('breakright');"/>
+</div>
+<div style="overflow-y: scroll;" id="properties" class="properties">
+
+</div>
+<script type="text/javascript">
+var to_unjoin = null;
+var shapes = [];
+var connectors = [];
+var filestores = [];
+var boundaries = [];
+var processes = [];
+var canvas = null;
+var join_obj1 = null;
+var join_obj2 = null;
+var join_obj3 = null;
+var attempt_no = 1;
+var boundary_edges = [];
+var joined_objects = [];
+
+
+</script>
+<script type="text/javascript" src="/rack/jquery.js"></script>
+<script type="text/javascript" src="/rack/fabric.js"></script>
+<script type="text/javascript" src="/rack/helpers.js"></script>
+<script type="text/javascript" src="/rack/callbacks.js"></script>
+<script type="text/javascript" src="/rack/draw.js"></script>
+</body>
+</html>
