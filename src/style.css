@@ -22,3 +22,13 @@
     height: 20%;
     border: 1px solid #ccc;
 }
+
+
+.td {
+    border: 1px solid #ccc;
+    background-color: lightblue;
+}
+
+.input_box {
+    background-color: lightyellow;
+}

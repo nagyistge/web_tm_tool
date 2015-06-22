@@ -216,9 +216,28 @@ function get_obj_with_type(group, t) {
     }
   }
 }
+
+function clear_input(e) {
+  console.log(e.val);
+  e.value = '';
+}
+function remove_threat(obj, threat) {
+  for (var i = 0; i < obj.threats.length; i++) {
+    if (obj.threats[i][1] == threat) {
+      obj.threats.pop(i);
+    }
+  }
+}
+function delete_row(e) {
+  var obj = canvas.getActiveObject();
+  console.log(obj);
+  var threat_desc = $(e).text();
+  remove_threat(obj, threat_desc);
+  display_properties(obj);
+}
 function wrap_input_box(name, data) {
 
-  var input_box = "<input id='" + name + "' value='" + data + "'></input>";
+  var input_box = "<input class='input_box' onClick='clear_input(this);' id='" + name + "' value='" + data + "'></input>";
   return input_box;
 }
 
@@ -240,42 +259,57 @@ function save_obj() {
 
 function display_properties(obj) {
   $('#properties').empty();
-  var mit = '<input id="mit_input" class="mit" type="checkbox">Mitigated?</input>';
-  var submit = '<button type="button" onclick="add_threat();">Submit</button>';
   var t_obj = get_obj_with_type(obj, 'i-text');
   var nont_obj = get_obj_with_type
   
-  $('#properties').append('<p>Component name:</p>');
-  $('#properties').append(wrap_input_box('comp_name', t_obj.text));
-  $('#properties').append('<p>Threats:</p>');
 
-  var combo_box = "<table style='width:100%'><tr><td>Number</td><td>Type</td><td>Description</td><td>Mitigated?</td></tr>";
+  var td_begin = "<td class='td' onClick='delete_row(this);'>";
+  var tr_begin = "<tr class='tr'>";
+  var td_end = "</td>";
+  var tr_end = "</tr>";
+  var table_begin = "<table style='width:100%'>";
+  var table_end = "</table>";
+  var tb = td_end + td_begin;
+  var mit_input_checked = '<input id="mit_result" class="mit" type="checkbox" checked></input>';
+  var mit_input_unchecked = '<input id="mit_result" class="mit" type="checkbox"></input>';
+  var mit_query = '<input id="mit_input" class="mit" type="checkbox">Mitigated?</input>';
+  var submit = '<button type="button" onclick="add_threat();">Submit</button>';
+  var save = '<button type="button" onclick="save_obj();">Save</button>';
+
+  var combo_box = table_begin + tr_begin + td_begin + 'Number' + tb + 'Type' + tb + 'Description' + tb + 'Mitigated?' + td_end + tr_end;
+  var save_para = '<p>Save</p>';
+  var add_new_threat_para = '<p>Add new threat:</p>';
+  var cname_para = '<p>Component name:</p>';
+  var threats_para = '<p>Threats:</p>';
+
+  $('#properties').append(cname_para);
+  $('#properties').append(wrap_input_box('comp_name', t_obj.text));
+  $('#properties').append(threats_para);
+
   var num = 1;
   for (var i = 0; i < obj.threats.length; i ++) {
     var threat = obj.threats[i]
     var mitigated = threat[2];
     var mit_result;
-    var mit_result;
     if(mitigated == true) {
-      mit_result = '<input id="mit_result" class="mit" type="checkbox" checked>Mitigated?</input>';
+      mit_result = mit_input_checked;
     } else {
-      mit_result = '<input id="mit_result" class="mit" type="checkbox">Mitigated?</input>';
+      mit_result = mit_input_unchecked;
     }
-    var table_row = '<tr><td>' + num + '</td><td>' + threat[0] + '</td><td>' + threat[1] + '</td><td>' + mit_result + '</td></tr>';
+    var table_row = tr_begin + td_begin + num + tb + threat[0] + tb + threat[1] + tb + mit_result + td_end + tr_end;
     combo_box = combo_box + table_row;
     num ++;
   }
-  combo_box = combo_box + '</table>';
+  combo_box = combo_box + table_end;
   $('#properties').append(combo_box);
   
-  $('#properties').append('<p>Add new threat:</p>');
+  $('#properties').append(add_new_threat_para);
   $('#properties').append(wrap_input_box('threat_type', 'Threat type'));
   $('#properties').append(wrap_input_box('threat_desc', 'Threat description'));
-  $('#properties').append(mit);
+  $('#properties').append(mit_query);
   $('#properties').append(submit);
 
-  $('#properties').append('<p>Save</p>');
-  var save = '<button type="button" onclick="save_obj();">Save</button>';
+  $('#properties').append(save_para);
   $('#properties').append(save);
   
 }
