@@ -17,19 +17,18 @@ Advantages of current plan of threat model:
 
 The following features are present as of now:
 
-
 1. Add file stores
 2. Add processes
 3. Add connectors
 4. Add boundaries
-
 5. Move the objects
 6. Resize the objects
-7. Join connectors to objects
-8. Unjoin connectors from objects
-9. Change the name of the object
-
-10. Read threats corresponding to an object
-11. Add more threats to objects
-
-12. Save the objects - TBD
+7. Rename objects
+8. Join connectors to objects
+9. Unjoin connectors from objects
+10. Change the name of the object
+11. Read threats corresponding to an object
+12. Add more threats to objects
+13. Delete threats
+14. Save the objects - TBD
+15. Delete objects
